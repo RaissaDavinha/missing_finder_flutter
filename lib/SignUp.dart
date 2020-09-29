@@ -1,24 +1,26 @@
 import 'package:flutter/material.dart';
 
-import 'SignUp.dart';
 import 'authService.dart';
 import 'Home.dart';
 
-class Login extends StatefulWidget {
-  Login({Key key, this.title}) : super(key: key);
+class SignUp extends StatefulWidget {
+  SignUp({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  LoginPageState createState() => LoginPageState();
+  SignUpPageState createState() => SignUpPageState();
 }
 
-class LoginPageState extends State<Login> {
+class SignUpPageState extends State<SignUp> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final userName = TextEditingController();
+  final fullName = TextEditingController();
+  final number = TextEditingController();
 
-  void login(String email, String password, BuildContext context) {
+  void signUp(BuildContext context) {
     setState(() {
-      loginAuthService(email, password);
+      signUpAuthService( );
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomeActivity()),
@@ -28,7 +30,6 @@ class LoginPageState extends State<Login> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     emailController.dispose();
     super.dispose();
   }
@@ -44,8 +45,26 @@ class LoginPageState extends State<Login> {
           padding: EdgeInsets.all(20.0),
           children: <Widget>[
             Text(
-              'Login',
+              'Criar conta',
               style: Theme.of(context).textTheme.headline4,
+            ),
+            Divider(),
+            TextFormField(
+              keyboardType: TextInputType.text,
+              controller: userName,
+              decoration: InputDecoration(
+                labelText: 'Nome de usuario',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            Divider(),
+            TextFormField(
+              keyboardType: TextInputType.text,
+              controller: fullName,
+              decoration: InputDecoration(
+                labelText: 'Nome completo',
+                border: OutlineInputBorder(),
+              ),
             ),
             Divider(),
             TextFormField(
@@ -58,10 +77,27 @@ class LoginPageState extends State<Login> {
             ),
             Divider(),
             TextFormField(
+              keyboardType: TextInputType.phone,
+              controller: number,
+              decoration: InputDecoration(
+                labelText: 'Telefone',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            Divider(),
+            TextFormField(
               obscureText: true,
               controller: passwordController,
               decoration: InputDecoration(
-                labelText: 'Password',
+                labelText: 'Senha',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            Divider(),
+            TextFormField(
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Confirme a senha',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -70,24 +106,15 @@ class LoginPageState extends State<Login> {
               flex: 0,
               child: FlatButton(
                 onPressed: () {
-                  login(emailController.text, passwordController.text, context);
+                  signUp(context);
                 },
-                child: Text("Login"),
+                child: Text("Registrar"),
                 color: Colors.blue,
                 padding: EdgeInsets.all(10),
                 textColor: Colors.white,
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(30.0)),
               ),
-            ),
-            new GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUp(title: widget.title)),
-                );
-              },
-              child: new Text("Cadastrar", textAlign: TextAlign.center,),
             ),
           ],
         ),
