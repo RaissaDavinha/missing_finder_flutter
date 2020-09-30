@@ -17,10 +17,12 @@ class SignUpPageState extends State<SignUp> {
   final userName = TextEditingController();
   final fullName = TextEditingController();
   final number = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void signUp(BuildContext context) {
     setState(() {
-      signUpAuthService( );
+      User user = User(userName.text, emailController.text, passwordController.text, number.text, fullName.text);
+      signUpAuthService(user);
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => HomeActivity()),
@@ -40,7 +42,8 @@ class SignUpPageState extends State<SignUp> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
+      body: Form(
+        key: _formKey,
         child: ListView(
           padding: EdgeInsets.all(20.0),
           children: <Widget>[
@@ -51,6 +54,12 @@ class SignUpPageState extends State<SignUp> {
             Divider(),
             TextFormField(
               keyboardType: TextInputType.text,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite um nome de usuario';
+                }
+                return null;
+              },
               controller: userName,
               decoration: InputDecoration(
                 labelText: 'Nome de usuario',
@@ -65,6 +74,12 @@ class SignUpPageState extends State<SignUp> {
                 labelText: 'Nome completo',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite seu nome completo';
+                }
+                return null;
+              },
             ),
             Divider(),
             TextFormField(
@@ -74,6 +89,12 @@ class SignUpPageState extends State<SignUp> {
                 labelText: 'E-mail',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite um email';
+                }
+                return null;
+              },
             ),
             Divider(),
             TextFormField(
@@ -83,6 +104,12 @@ class SignUpPageState extends State<SignUp> {
                 labelText: 'Telefone',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite um telefone';
+                }
+                return null;
+              },
             ),
             Divider(),
             TextFormField(
@@ -92,6 +119,12 @@ class SignUpPageState extends State<SignUp> {
                 labelText: 'Senha',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite uma senha';
+                }
+                return null;
+              },
             ),
             Divider(),
             TextFormField(
@@ -100,13 +133,21 @@ class SignUpPageState extends State<SignUp> {
                 labelText: 'Confirme a senha',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Confirme a senha';
+                }
+                return null;
+              },
             ),
             Divider(),
             Expanded(
               flex: 0,
               child: FlatButton(
                 onPressed: () {
-                  signUp(context);
+                  if(_formKey.currentState.validate()){
+                    signUp(context);
+                  }
                 },
                 child: Text("Registrar"),
                 color: Colors.blue,

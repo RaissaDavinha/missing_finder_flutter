@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart';
 
@@ -13,6 +14,18 @@ loginAuthService(String username, String password) async {
   print(r.body);
 }
 
-signUpAuthService() async {
+Future<Response> signUpAuthService(User user) async {
+  return post('http://localhost:5000/api/users',
+      headers: {HttpHeaders.contentTypeHeader: "application/json"},
+      body: jsonEncode(user));
+}
 
+class User {
+  String userName;
+  String email;
+  String senha;
+  String telefone;
+  String fullName;
+
+  User(this.userName, this.email, this.senha, this.telefone, this.fullName);
 }

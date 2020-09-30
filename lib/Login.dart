@@ -15,6 +15,7 @@ class Login extends StatefulWidget {
 class LoginPageState extends State<Login> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   void login(String email, String password, BuildContext context) {
     setState(() {
@@ -39,7 +40,8 @@ class LoginPageState extends State<Login> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Container(
+      body: Form(
+        key: _formKey,
         child: ListView(
           padding: EdgeInsets.all(20.0),
           children: <Widget>[
@@ -55,6 +57,12 @@ class LoginPageState extends State<Login> {
                 labelText: 'E-mail',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite um email';
+                }
+                return null;
+              },
             ),
             Divider(),
             TextFormField(
@@ -64,6 +72,12 @@ class LoginPageState extends State<Login> {
                 labelText: 'Password',
                 border: OutlineInputBorder(),
               ),
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Digite uma senha';
+                }
+                return null;
+              },
             ),
             Divider(),
             Expanded(
@@ -82,10 +96,12 @@ class LoginPageState extends State<Login> {
             ),
             new GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignUp(title: widget.title)),
-                );
+                if(_formKey.currentState.validate()){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp(title: widget.title)),
+                  );
+                }
               },
               child: new Text("Cadastrar", textAlign: TextAlign.center,),
             ),
