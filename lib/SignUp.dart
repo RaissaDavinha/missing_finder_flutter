@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'authService.dart';
-import 'Home.dart';
+import 'Profile.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key, this.title}) : super(key: key);
@@ -25,7 +25,7 @@ class SignUpPageState extends State<SignUp> {
       signUpAuthService(user);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomeActivity()),
+        MaterialPageRoute(builder: (context) => Profile()),
       );
     });
   }

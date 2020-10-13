@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:missing_find_app/Cartazes.dart';
+import 'package:missing_find_app/MyInformations.dart';
+import 'package:missing_find_app/ProfileData.dart';
 
-class HomeActivity extends StatelessWidget {
+class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,6 +35,18 @@ class HomeActivity extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Text("Katy Perry"),
+              FlatButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ProfileData()),
+                  );
+                },
+                child: Text("Perfil"),
+                color: Colors.white,
+                textColor: Colors.blue,
+              ),
               FlatButton(
                 onPressed: () {},
                 child: Text("Notificacoes"),
@@ -42,7 +57,12 @@ class HomeActivity extends StatelessWidget {
                 color: Colors.white,
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Cartazes()),
+                  );
+                },
                 child: Text("Meus cartazes"),
                 color: Colors.blue,
                 textColor: Colors.white,
@@ -51,8 +71,13 @@ class HomeActivity extends StatelessWidget {
                 color: Colors.white,
               ),
               FlatButton(
-                onPressed: () {},
-                child: Text("Minhas informacoes"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyInformations()),
+                  );
+                },
+                child: Text("Minhas informações"),
                 color: Colors.blue,
                 textColor: Colors.white,
               ),
